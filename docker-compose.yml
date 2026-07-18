@@ -3,7 +3,6 @@ version: "3.8"
 services:
   proxy:
     image: nginx:latest
-    container_name: proxy
     ports:
       - "80:80"
     volumes:
@@ -19,23 +18,19 @@ services:
 
   auth:
     image: traefik/whoami:latest
-    container_name: auth
+  
 
   order:
     image: traefik/whoami:latest
-    container_name: order
 
   api:
     image: traefik/whoami:latest
-    container_name: api
   
   profile:
     image: traefik/whoami:latest
-    container_name: profile
 
   delivery:
     image: traefik/whoami:latest
-    container_name: delivery
     
 
 
