@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  proxy:
+    image: nginx:latest
+    container_name: proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./proxy/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./proxy/index.html:/usr/share/nginx/html/index.html:ro
+    depends_on:
+      - auth
+      - order
+      - api
+      - profile
+      - delivery
+
+  auth:
+    image: traefik/whoami:latest
+    container_name: auth
+
+  order:
+    image: traefik/whoami:latest
+    container_name: order
+
+  api:
+    image: traefik/whoami:latest
+    container_name: api
+  
+  profile:
+    image: traefik/whoami:latest
+    container_name: profile
+
+  delivery:
+    image: traefik/whoami:latest
+    container_name: delivery
+    
+
+
