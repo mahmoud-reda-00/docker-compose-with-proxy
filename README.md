@@ -174,4 +174,4 @@ You can add screenshots or GIFs here showing:
 **Mahmoud Reda Saafan**
 
 - GitHub: https://github.com/mahmoud-reda-00
-- LinkedIn: https://www.linkedin.com/in/mahmoud-reda-saafan
+- LinkedIn: https://www.linkedin.com/in/mahmoud-saafan-8178b2247
