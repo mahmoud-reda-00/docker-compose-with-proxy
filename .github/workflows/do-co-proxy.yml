@@ -1,43 +1,43 @@
-name: Docker-compose-proxy-app CI
+name: Docker Compose CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  build:
+  test-compose:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6.1.0
+      - uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t compose-proxy-app .
+      - name: Validate Compose
+        run: docker compose config
 
-      - name: start container 
+      - name: Start Services
         run: docker compose up -d
 
-      - name: containers list
+      - name: Show Containers
         run: docker compose ps
 
-      - name: Wait for application
-        run: sleep 5
+      - name: Test Auth Service
+        run: curl http://localhost/auth
 
-      - name: Test application
-        run: curl http://localhost
+      - name: Test Order Service
+        run: curl http://localhost/order
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v4.5.1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+      - name: Test API Service
+        run: curl http://localhost/api
 
-      - name: Build image
-        run: docker build -t mv7moud/compose-proxy-app:latest .
+      - name: Test Profile Service
+        run: curl http://localhost/profile
 
-      - name: Push image to Docker Hub
-        run: docker push mv7moud/compose-proxy-app:latest
+      - name: Test Delivery Service
+        run: curl http://localhost/delivery
 
+      - name: Stop Services
+        if: always()
+        run: docker compose down
         
